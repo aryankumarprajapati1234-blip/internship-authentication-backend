@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f3f4f6;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            width: 850px;
+            max-width: 100%;
+            min-height: 520px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .left {
+            width: 45%;
+            background: linear-gradient(135deg, #4338ca, #0ea5e9);
+            color: white;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .left h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .left p {
+            line-height: 1.7;
+            color: #eeeeff;
+        }
+
+        .right {
+            flex: 1;
+            padding: 40px 35px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tabs button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #eeeeff;
+            color: #4338ca;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .tabs button.active {
+            background: #4338ca;
+            color: white;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #172033;
+        }
+
+        .subtitle {
+            color: #667085;
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #4338ca;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #4338ca;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #3730a3;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .switch {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #667085;
+        }
+
+        .switch button {
+            border: none;
+            background: none;
+            color: #4338ca;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 650px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left {
+                width: 100%;
+                padding: 25px;
+            }
+
+            .left h1 {
+                font-size: 26px;
+            }
+
+            .right {
+                padding: 25px;
+            }
+        }
+        
+/* User Profile Card */
+.profile {
+    margin-top: 25px;
+    padding: 24px;
+    background: linear-gradient(135deg, #f8faff, #eef2ff);
+    border: 1px solid #dbe3ff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(67, 56, 202, 0.08);
+    animation: profileAppear 0.35s ease;
+}
+
+.profile h3 {
+    color: #3730a3;
+    font-size: 22px;
+    margin-bottom: 18px;
+}
+
+.profile p {
+    color: #475569;
+    font-size: 14px;
+    margin: 12px 0;
+    padding: 12px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    overflow-wrap: anywhere;
+}
+
+.profile strong {
+    color: #172033;
+}
+
+/* Logout Button */
+.secondary-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 13px;
+    background: #ffffff;
+    color: #4338ca;
+    border: 1px solid #4338ca;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.secondary-btn:hover {
+    background: #4338ca;
+    color: #ffffff;
+    box-shadow: 0 5px 14px rgba(67, 56, 202, 0.2);
+}
+
+/* Profile entrance animation */
+@keyframes profileAppear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="left">
+            <h1>Your Account.<br>Your Space.</h1>
+            <p>
+                Welcome to Auth Portal.
+                Create your account, verify your email
+                and log in securely.
+            </p>
+        </div>
+
+        <div class="right">
+
+            <div class="tabs">
+                <button id="loginTab" class="active" type="button">
+                    Login
+                </button>
+
+                <button id="registerTab" type="button">
+                    Register
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <section id="loginSection">
+
+                <h2>Welcome Back!</h2>
+                <p class="subtitle">
+                    Enter your details to log in.
+                </p>
+
+                <form id="loginForm">
+
+                    <div class="field">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" name="password" placeholder="Enter your password"
+                            required>
+                    </div>
+
+                    <button class="submit-btn" type="submit">
+                        Login
+                    </button>
+
+                </form>
+
+                <p id="loginMessage" class="message"></p>
+                <div id="profileArea"></div>
+                <div class="switch">
+                    Don't have an account?
+                    <button id="showRegister" type="button">
+                        Register
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- Registration Form -->
+            <section id="registerSection" class="hidden">
+
+                <h2>Create Account</h2>
+                <p class="subtitle">
+                    Register first, then verify your email with OTP.
+                </p>
+
+                <form id="registerForm">
+
+                    <div class="field">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Choose a username" minlength="3"
+                            maxlength="20" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" name="password" placeholder="Create a password"
+                            minlength="6" required>
+                    </div>
+
+                    <button class="submit-btn" type="submit">
+                        Create Account
+                    </button>
+
+                </form>
+
+                <p id="registerMessage" class="message"></p>
+
+                <!-- OTP Verification Form -->
+                <div id="otpSection" class="hidden">
+
+                    <hr style="margin: 25px 0;">
+
+                    <h2>Verify Email</h2>
+                    <p class="subtitle">
+                        Enter the OTP sent to your email.
+                    </p>
+
+                    <form id="otpForm">
+
+                        <div class="field">
+                            <label for="otpEmail">Email</label>
+                            <input type="email" id="otpEmail" name="email" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="otp">OTP</label>
+                            <input type="text" id="otp" name="otp" inputmode="numeric" placeholder="Enter OTP" required>
+                        </div>
+
+                        <button class="submit-btn" type="submit">
+                            Verify Email
+                        </button>
+
+                    </form>
+
+                    <p id="otpMessage" class="message"></p>
+
+                </div>
+
+                <div class="switch">
+                    Already have an account?
+                    <button id="showLogin" type="button">
+                        Login
+                    </button>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+
+</body>
+
+</html>
